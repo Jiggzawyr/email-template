@@ -1,0 +1,61 @@
+{
+	"info": {
+		"_postman_id": "9a5a91e1-07e9-4aec-a6fa-411c930c8b19",
+		"name": "Email Template",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "12157551"
+	},
+	"item": [
+		{
+			"name": "Get Templates",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8080/email-template/v1/templates",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"email-template",
+						"v1",
+						"templates"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Create Template",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"description\": \"description\",\r\n    \"subjectTemplate\": \"subjectTemplate\",\r\n    \"bodyTemplate\": \"bodyTemplate\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8080/email-template/v1/templates",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"email-template",
+						"v1",
+						"templates"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}
