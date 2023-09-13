@@ -7,7 +7,7 @@ CREATE SCHEMA dbo;
 DROP TABLE IF EXISTS dbo.email_template;
 CREATE TABLE dbo.email_template(
 	email_template_id SERIAL PRIMARY KEY,
-	description VARCHAR ( 500 ),
+	description VARCHAR ( 50 ),
 	subject_template VARCHAR ( 100 ),
 	body_template VARCHAR ( 2000 )
 )

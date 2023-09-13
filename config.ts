@@ -12,4 +12,10 @@ export const config = {
     password: env.DB_PASSWORD,
     database: env.DB_NAME,
   },
+  smtp: {
+    host: env.SMTP_HOST,
+    port: env.SMTP_PORT,
+    user: env.SMTP_USER,
+    password: env.SMTP_PASSWORD,
+  }
 };

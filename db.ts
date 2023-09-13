@@ -1,7 +1,7 @@
-import { Pool, PoolConfig } from 'pg';
-import { config } from './config/config';
+import { Pool } from 'pg';
+import { config } from './config';
 
-const poolConfig: PoolConfig = {
+const poolConfig = {
     host: config.db.host,
     port: config.db.port,
     user: config.db.user,
@@ -9,4 +9,4 @@ const poolConfig: PoolConfig = {
     database: config.db.database,
 }
 
-export const pool: Pool = new Pool(poolConfig);
+export const pool = new Pool(poolConfig);
