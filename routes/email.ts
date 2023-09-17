@@ -12,29 +12,39 @@ module.exports = router;
 router.post('/', async (req: Request, res: Response) => {
     try {
         // Get template
-        const id: number = req.body.id;
-        if(!id) throw Error("id is required")
-        const result: QueryResult<any> = 
-            await pool.query("SELECT subject_template, body_template FROM dbo.email_template WHERE email_template_id = $1", [id]);
-        if(result.rows.length == 0) throw Error(`Template wiht with id = ${id} does not exist`);
-        let subjectTemplate: string = result.rows[0]['subject_template'];
-        let bodyTemplate: string = result.rows[0]['body_template'];
+        const templateId: number = req.body.templateId;
+        if(!templateId) throw Error("templateId is required")
+        const template: QueryResult<any> = 
+            await pool.query("SELECT subject_template, body_template FROM dbo.email_template WHERE email_template_id = $1", [templateId]);
+        if(template.rows.length == 0) throw Error(`Template wiht with id = ${templateId} does not exist`);
+        let subjectTemplate: string = template.rows[0]['subject_template'];
+        let bodyTemplate: string = template.rows[0]['body_template'];
 
-        // Prepare email
+        // Send email
         if(!Array.isArray(req.body.subjectParams)) throw Error("subjectParams must be a list");
         const subject = prepareTemplate(subjectTemplate, req.body.subjectParams);
         if(!Array.isArray(req.body.bodyParams)) throw Error("bodyParams must be a list")
         const body = prepareTemplate(bodyTemplate, req.body.bodyParams);
 
+        const to: String = req.body.to;
         let mailOptions = {
             from: 'emailtemplate@nookcrew.com',
-            to: req.body.to,
+            to: to,
             subject: subject,
             text: body,
         };
 
         await transporter.sendMail(mailOptions);
     
+        // Insert email into DB
+
+        const queryStringEmail: string = 
+            " INSERT INTO dbo.email(email_template_id, email_status_id, \"to\", subject, body, created_at, sent_at) " +
+            " VALUES ($1, $2, $3, $4, $5, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP) ";
+        const queryParamsEmail: any[] = [ templateId, 2, to, subject, body ]
+
+        await pool.query(queryStringEmail, queryParamsEmail);
+
         res.status(200).json({
             status: "Mail sent"
         })
