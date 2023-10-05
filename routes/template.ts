@@ -50,7 +50,9 @@ router.post('/', async (req: Request, res: Response, next: NextFunction) => {
         if(!bodyTemplate) throw new BadRequestError("bodyTemplate cannot be empty");
         if(bodyTemplate.length > 50) throw new BadRequestError("bodyTemplate cannot be longer than 2000 characters");
 
-        const sql: string = "INSERT INTO dbo.email_template(description, subject_template, body_template) VALUES ($1, $2, $3) RETURNING email_template_id;"
+        const sql: string = 
+            "INSERT INTO dbo.email_template(description, subject_template, body_template) " +
+            " VALUES ($1, $2, $3) RETURNING email_template_id;"
         const result: QueryResult<any> = await pool.query(sql,[ description, subjectTemplate, bodyTemplate ]);
         const emailTemplateId: number = result.rows[0]['email_template_id'];
         const emailTemplate: EmailTemplate = {

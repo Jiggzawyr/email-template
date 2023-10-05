@@ -12,7 +12,7 @@ const port: string | undefined = process.env.APP_PORT;
 app.use(express.json());
 app.use('/email-template/v1/templates', template)
 app.use('/email-template/v1/emails', email)
-app.use(errorHandler)
+  app.use(errorHandler)
 
 app.listen(port, () => {
   console.log(`⚡️[server]: Server is running at http://localhost:${port}`);

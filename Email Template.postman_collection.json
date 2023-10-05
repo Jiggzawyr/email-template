@@ -130,6 +130,37 @@
 				}
 			},
 			"response": []
+		},
+		{
+			"name": "Schedule Email",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"templateId\": 1,\r\n    \"to\": \"martinstojanovic96@gmail.com\",\r\n    \"subjectParams\": [\r\n        {\r\n            \"name\": \"PARAM1\",\r\n            \"value\": \"VALUE1\"\r\n        }\r\n    ],\r\n    \"bodyParams\": [\r\n        {\r\n            \"name\": \"PARAM1\",\r\n            \"value\": \"VALUE1\"\r\n        },\r\n        {\r\n            \"name\": \"PARAM2\",\r\n            \"value\": \"VALUE2\"\r\n        }\r\n    ],\r\n    \"scheduleAt\": \"2023-10-05T14:10:00.000Z\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8080/email-template/v1/emails/schedule",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"email-template",
+						"v1",
+						"emails",
+						"schedule"
+					]
+				}
+			},
+			"response": []
 		}
 	]
 }

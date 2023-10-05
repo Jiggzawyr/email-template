@@ -35,10 +35,12 @@ CREATE TABLE dbo.email(
 	email_id SERIAL PRIMARY KEY,
 	email_template_id SERIAL REFERENCES dbo.email_template ON DELETE RESTRICT,
 	email_status_id SMALLINT REFERENCES dbo.email_status ON DELETE RESTRICT,
+	error_description VARCHAR ( 2000 ),
 	"to" VARCHAR ( 2000 ),
 	subject VARCHAR ( 200 ),
 	body VARCHAR ( 4000 ),
 	created_at TIMESTAMP,
+	scheduled_at TIMESTAMP,
 	sent_at TIMESTAMP
 );
 
