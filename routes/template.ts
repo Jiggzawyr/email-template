@@ -22,7 +22,7 @@ router.get('/:templateId', async (req: Request, res: Response, next: NextFunctio
 
         const templateId = req.params.templateId;
         if(/^[0-9]*$/.test(templateId) == false) throw new BadRequestError("Template id must be integer");
-        const sql: string = "SELECT * FROM dbo.email_template WHERE email_template_id = $1";
+        const sql: string = `SELECT * FROM dbo.email_template WHERE email_template_id = $1`;
         const result: QueryResult<any> = await pool.query(sql, [templateId]);
         if(result.rows.length == 0) throw new NotFoundError(`Template with id = ${templateId} does not exist`);
         res.status(200).json(result.rows[0])
@@ -50,9 +50,10 @@ router.post('/', async (req: Request, res: Response, next: NextFunction) => {
         if(!bodyTemplate) throw new BadRequestError("bodyTemplate cannot be empty");
         if(bodyTemplate.length > 50) throw new BadRequestError("bodyTemplate cannot be longer than 2000 characters");
 
-        const sql: string = 
-            "INSERT INTO dbo.email_template(description, subject_template, body_template) " +
-            " VALUES ($1, $2, $3) RETURNING email_template_id;"
+        const sql: string = `
+            INSERT INTO dbo.email_template(description, subject_template, body_template) 
+            VALUES ($1, $2, $3) RETURNING email_template_id
+        `;
         const result: QueryResult<any> = await pool.query(sql,[ description, subjectTemplate, bodyTemplate ]);
         const emailTemplateId: number = result.rows[0]['email_template_id'];
         const emailTemplate: EmailTemplate = {

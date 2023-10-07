@@ -17,5 +17,9 @@ export const config = {
     port: env.SMTP_PORT,
     user: env.SMTP_USER,
     password: env.SMTP_PASSWORD,
-  }
+  },
+  cron: {
+    interval: env.CRON_INTERVAL,
+    mailsPerCycle: parseInt(env.CRON_MAILS_PER_CYCLE!),
+  },
 };

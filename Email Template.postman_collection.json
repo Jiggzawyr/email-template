@@ -115,7 +115,7 @@
 				"method": "GET",
 				"header": [],
 				"url": {
-					"raw": "http://localhost:8080/email-template/v1/emails/1",
+					"raw": "http://localhost:8080/email-template/v1/emails/34",
 					"protocol": "http",
 					"host": [
 						"localhost"
@@ -125,7 +125,7 @@
 						"email-template",
 						"v1",
 						"emails",
-						"1"
+						"34"
 					]
 				}
 			},
